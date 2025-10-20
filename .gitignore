@@ -1,0 +1,20 @@
+# Global ignores
+.DS_Store
+Thumbs.db
+.env
+.env.local
+*.log
+
+# Node
+node_modules/
+dist/
+build/
+out/
+
+# Next.js
+.next/
+.vercel/
+
+# VSCode
+.vscode/
+.idea/
