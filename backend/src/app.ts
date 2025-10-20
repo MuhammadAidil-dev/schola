@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { errorHandler } from './middleware/errorHandler';
+import routes from './routes';
 
 const app = express();
 
@@ -10,6 +11,9 @@ app.use(
     origin: '*',
   })
 );
+
+// global route
+app.use('/api', routes);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
