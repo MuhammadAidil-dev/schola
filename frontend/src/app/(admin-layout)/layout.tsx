@@ -1,6 +1,13 @@
 import AdminNavbar from '@/components/fragments/navbar/admin/AdminNavbar';
 import AdminSidebar from '@/components/fragments/navbar/admin/AdminSidebar';
+import { Metadata } from 'next';
 import { ReactNode } from 'react';
+
+export const metadata: Metadata = {
+  title: 'Scola | Admin',
+  description: 'Scola admin page',
+  icons: '/assets/icons/main-logo.svg',
+};
 
 export default function AdminLayout({
   children,
