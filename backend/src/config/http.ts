@@ -6,6 +6,7 @@ type HttpCode = {
   UNAUTHORIZED: number;
   FORBIDDEN: number;
   INTERNAL_SERVER_ERROR: number;
+  CONFLICT: number;
 };
 
 export const httpCode: HttpCode = {
@@ -16,4 +17,5 @@ export const httpCode: HttpCode = {
   UNAUTHORIZED: 401,
   FORBIDDEN: 403,
   INTERNAL_SERVER_ERROR: 500,
+  CONFLICT: 409,
 };
