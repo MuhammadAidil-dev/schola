@@ -61,7 +61,7 @@ export default function AdminNavbar() {
             href="/admin"
             className={`flex items-center font-semibold  text-sm gap-2 py-2 px-2 bg-primary rounded-sm ${checkPathname(
               '/admin',
-              pathname
+              pathname!
             )} cursor-pointer`}
           >
             <IoGridOutline size={20} color="primary" />
@@ -73,7 +73,7 @@ export default function AdminNavbar() {
               onClick={() => setLinkListOpen(!linkListOpen)}
               className={`flex items-center font-semibold  text-sm gap-2 py-2 px-2 bg-primary rounded-sm ${checkPathname(
                 linkUrl,
-                pathname
+                pathname!
               )} cursor-pointer`}
             >
               <FaListUl size={20} color="primary" />
