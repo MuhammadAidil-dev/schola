@@ -58,16 +58,13 @@ const StudentSchema = new Schema<IStudentDocument>(
     parentData: {
       fatherName: {
         type: String,
-        required: true,
       },
       motherName: {
         type: String,
-        required: true,
       },
       parentPhoneNumber: String,
       parentAddress: {
         type: String,
-        required: true,
       },
     },
   },

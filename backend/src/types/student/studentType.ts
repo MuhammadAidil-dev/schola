@@ -36,7 +36,7 @@ export interface IStudent {
   email: string;
   phoneNumber: string;
   academicData: AcademicType;
-  parentData: ParentType;
+  parentData?: ParentType;
 }
 
 export interface IStudentDocument extends Omit<IStudent, '_id'>, Document {}
