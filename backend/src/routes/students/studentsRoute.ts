@@ -5,5 +5,7 @@ const route = Router();
 
 route.get('/', studentController.getAllStudents);
 route.post('/', studentController.createStudent);
+route.put('/:id', studentController.updateStudent);
+route.delete('/:id', studentController.deleteStudent);
 
 export default route;

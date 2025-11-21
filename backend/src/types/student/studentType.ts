@@ -40,3 +40,6 @@ export interface IStudent {
 }
 
 export interface IStudentDocument extends Omit<IStudent, '_id'>, Document {}
+
+export type CreateStudentDTO = Omit<IStudent, '_id'>;
+export type UpdateStudentDTO = Partial<Omit<IStudent, '_id'>>;
