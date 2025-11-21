@@ -2,14 +2,17 @@ import { NextFunction, Request, Response } from 'express';
 import { ObjectSchema } from 'joi';
 import AppError from '../utils/appError';
 
-export const validateRequest = (schema: ObjectSchema) => {
+export const validateRequest = <T>(schema: ObjectSchema<T>) => {
   return (req: Request, res: Response, next: NextFunction) => {
-    const { error, value } = schema.validate(req.body);
+    const { error, value } = schema.validate(req.body, {
+      abortEarly: false, // kumpulkan semua error
+      stripUnknown: true, // hapus field yang tidak boleh
+    });
 
     if (error) {
       console.log('error : ', error);
-      const message = error.details[0].message;
-      throw new AppError(400, message);
+      const messages = error.details.map((d) => d.message);
+      return next(new AppError(400, messages.join(', ')));
     }
 
     req.body = value;

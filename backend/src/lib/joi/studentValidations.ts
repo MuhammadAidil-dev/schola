@@ -1,6 +1,10 @@
-import Joi from 'joi';
+import Joi, { ObjectSchema } from 'joi';
+import {
+  CreateStudentDTO,
+  UpdateStudentDTO,
+} from '../../types/student/studentType';
 
-export const createStudentSchema = Joi.object({
+export const createStudentSchema: ObjectSchema<CreateStudentDTO> = Joi.object({
   fullname: Joi.string().trim().required(),
   nisn: Joi.string().trim().required(),
   gender: Joi.string().valid('male', 'female').required(),
@@ -25,7 +29,7 @@ export const createStudentSchema = Joi.object({
   }),
 });
 
-export const updateStudentSchema = Joi.object({
+export const updateStudentSchema: ObjectSchema<UpdateStudentDTO> = Joi.object({
   fullname: Joi.string().trim().optional(),
   nisn: Joi.string().trim().optional(),
   gender: Joi.string().valid('male', 'female').optional(),
