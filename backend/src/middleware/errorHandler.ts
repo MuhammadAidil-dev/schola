@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 
 const handleAppError = (res: Response, error: AppError): Response => {
   return res.status(error.statusCode).json({
-    status: 'Error',
+    status: error.statusError,
     message: error.message,
   });
 };

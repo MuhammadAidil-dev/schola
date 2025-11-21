@@ -42,7 +42,7 @@ const studentController: StudentController = {
 
       return res.status(httpCode.OK).json({
         status: 'success',
-        message: 'Success get all data students',
+        message: 'Success get data student',
         data: student,
       });
     } catch (error) {
