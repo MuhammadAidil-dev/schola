@@ -51,7 +51,7 @@ const StudentSchema = new Schema<IStudentDocument>(
       },
       studentClass: {
         type: Schema.Types.ObjectId,
-        ref: 'Class',
+        ref: 'GradeClass',
         required: true,
       },
     },

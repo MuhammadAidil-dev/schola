@@ -3,7 +3,6 @@ import { httpCode } from '../../config/http';
 import Student from '../../models/studentModel';
 import {
   CreateStudentDTO,
-  IStudent,
   IStudentDocument,
   UpdateStudentDTO,
 } from '../../types/student/studentType';
@@ -20,7 +19,10 @@ type StudentController = {
 const studentController: StudentController = {
   getAllStudents: async (req, res, next) => {
     try {
-      const students = await Student.find();
+      const students = await Student.find().populate({
+        path: 'academicData.studentClass',
+        model: 'GradeClass',
+      });
 
       return res.status(httpCode.OK).json({
         status: 'success',
@@ -34,7 +36,10 @@ const studentController: StudentController = {
   getStudentById: async (req, res, next) => {
     try {
       const { id }: { id?: string } = req.params;
-      const student = await Student.findById(id);
+      const student = await Student.findById(id).populate({
+        path: 'academicData.studentClass',
+        model: 'GradeClass',
+      });
 
       if (!student) {
         throw new AppError(404, 'Student Not Found');
