@@ -15,9 +15,5 @@ app.use(
 // global route
 app.use('/api', routes);
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
-
 app.use(errorHandler);
 export default app;

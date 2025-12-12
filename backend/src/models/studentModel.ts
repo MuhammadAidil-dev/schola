@@ -51,23 +51,20 @@ const StudentSchema = new Schema<IStudentDocument>(
       },
       studentClass: {
         type: Schema.Types.ObjectId,
-        ref: 'Class',
+        ref: 'GradeClass',
         required: true,
       },
     },
     parentData: {
       fatherName: {
         type: String,
-        required: true,
       },
       motherName: {
         type: String,
-        required: true,
       },
       parentPhoneNumber: String,
       parentAddress: {
         type: String,
-        required: true,
       },
     },
   },
