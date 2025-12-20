@@ -12,6 +12,9 @@ export default function AdminSidebar() {
   const [linkUrl, setLinkUrl] = useState<string>('');
   const [linkListOpen, setLinkListOpen] = useState(false);
 
+  console.log('pathname', pathname);
+  console.log('linkUrl', linkUrl);
+
   return (
     <aside
       className={`fixed left-0 bg-white w-[250px] min-h-screen shadow-sm transition-all duration-150 ease-in-out py-4 hidden md:flex flex-col p-4 z-50`}
@@ -61,10 +64,46 @@ export default function AdminSidebar() {
             <li
               onClick={() => setLinkUrl('/admin/management-data/siswa')}
               className={`text-sm font-semibold  ${
-                pathname === linkUrl ? 'text-secondary' : 'text-primary'
+                pathname === '/admin/management-data/siswa'
+                  ? 'text-secondary'
+                  : 'text-primary'
               }`}
             >
               <Link href="/admin/management-data/siswa">Siswa</Link>
+            </li>
+            <li
+              onClick={() => setLinkUrl('/admin/management-data/guru')}
+              className={`text-sm font-semibold  ${
+                pathname === '/admin/management-data/guru'
+                  ? 'text-secondary'
+                  : 'text-primary'
+              }`}
+            >
+              <Link href="/admin/management-data/guru">Guru</Link>
+            </li>
+            <li
+              onClick={() => setLinkUrl('/admin/management-data/kelas')}
+              className={`text-sm font-semibold  ${
+                pathname === '/admin/management-data/kelas'
+                  ? 'text-secondary'
+                  : 'text-primary'
+              }`}
+            >
+              <Link href="/admin/management-data/kelas">Kelas</Link>
+            </li>
+            <li
+              onClick={() =>
+                setLinkUrl('/admin/management-data/mata-pelajaran')
+              }
+              className={`text-sm font-semibold  ${
+                pathname === '/admin/management-data/mata-pelajaran'
+                  ? 'text-secondary'
+                  : 'text-primary'
+              }`}
+            >
+              <Link href="/admin/management-data/mata-pelajaran">
+                Mata Pelajaran
+              </Link>
             </li>
           </ul>
         </div>

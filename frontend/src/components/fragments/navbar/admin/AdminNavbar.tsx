@@ -93,10 +93,46 @@ export default function AdminNavbar() {
               <li
                 onClick={() => setLinkUrl('/admin/management-data/siswa')}
                 className={`text-sm font-semibold  ${
-                  pathname === linkUrl ? 'text-secondary' : 'text-primary'
+                  pathname === '/admin/management-data/siswa'
+                    ? 'text-secondary'
+                    : 'text-primary'
                 }`}
               >
                 <Link href="/admin/management-data/siswa">Siswa</Link>
+              </li>
+              <li
+                onClick={() => setLinkUrl('/admin/management-data/guru')}
+                className={`text-sm font-semibold  ${
+                  pathname === '/admin/management-data/guru'
+                    ? 'text-secondary'
+                    : 'text-primary'
+                }`}
+              >
+                <Link href="/admin/management-data/guru">Guru</Link>
+              </li>
+              <li
+                onClick={() => setLinkUrl('/admin/management-data/kelas')}
+                className={`text-sm font-semibold  ${
+                  pathname === '/admin/management-data/kelas'
+                    ? 'text-secondary'
+                    : 'text-primary'
+                }`}
+              >
+                <Link href="/admin/management-data/kelas">Kelas</Link>
+              </li>
+              <li
+                onClick={() =>
+                  setLinkUrl('/admin/management-data/mata-pelajaran')
+                }
+                className={`text-sm font-semibold  ${
+                  pathname === '/admin/management-data/mata-pelajaran'
+                    ? 'text-secondary'
+                    : 'text-primary'
+                }`}
+              >
+                <Link href="/admin/management-data/mata-pelajaran">
+                  Mata Pelajaran
+                </Link>
               </li>
             </ul>
           </div>
