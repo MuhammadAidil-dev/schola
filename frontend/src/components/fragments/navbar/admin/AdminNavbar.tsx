@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { FaChevronDown, FaListUl } from 'react-icons/fa';
 import { FiMenu } from 'react-icons/fi';
 import { IoGridOutline } from 'react-icons/io5';
+import { MdLogout } from 'react-icons/md';
 
 export default function AdminNavbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -56,7 +57,7 @@ export default function AdminNavbar() {
           isSidebarOpen ? 'left-0' : '-left-full'
         } bg-white w-[250px] absolute top-full min-h-screen shadow-sm transition-all duration-150 ease-in-out py-4`}
       >
-        <div className="flex flex-col gap-4 p-4">
+        <div className="flex flex-col gap-4 p-4 h-full">
           <Link
             href="/admin"
             className={`flex items-center font-semibold  text-sm gap-2 py-2 px-2 bg-primary rounded-sm ${checkPathname(
@@ -135,6 +136,10 @@ export default function AdminNavbar() {
                 </Link>
               </li>
             </ul>
+          </div>
+          <div className="mt-60 flex items-center gap-2 text-base font-semibold cursor-pointer border-b py-1">
+            <MdLogout />
+            Logout
           </div>
         </div>
       </aside>
