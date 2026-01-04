@@ -6,11 +6,15 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { FaChevronDown, FaListUl } from 'react-icons/fa';
 import { IoGridOutline } from 'react-icons/io5';
+import { MdLogout } from 'react-icons/md';
 
 export default function AdminSidebar() {
   const pathname = usePathname();
   const [linkUrl, setLinkUrl] = useState<string>('');
   const [linkListOpen, setLinkListOpen] = useState(false);
+
+  console.log('pathname', pathname);
+  console.log('linkUrl', linkUrl);
 
   return (
     <aside
@@ -61,14 +65,57 @@ export default function AdminSidebar() {
             <li
               onClick={() => setLinkUrl('/admin/management-data/siswa')}
               className={`text-sm font-semibold  ${
-                pathname === linkUrl ? 'text-secondary' : 'text-primary'
+                pathname === '/admin/management-data/siswa'
+                  ? 'text-secondary'
+                  : 'text-primary'
               }`}
             >
               <Link href="/admin/management-data/siswa">Siswa</Link>
             </li>
+            <li
+              onClick={() => setLinkUrl('/admin/management-data/guru')}
+              className={`text-sm font-semibold  ${
+                pathname === '/admin/management-data/guru'
+                  ? 'text-secondary'
+                  : 'text-primary'
+              }`}
+            >
+              <Link href="/admin/management-data/guru">Guru</Link>
+            </li>
+            <li
+              onClick={() => setLinkUrl('/admin/management-data/kelas')}
+              className={`text-sm font-semibold  ${
+                pathname === '/admin/management-data/kelas'
+                  ? 'text-secondary'
+                  : 'text-primary'
+              }`}
+            >
+              <Link href="/admin/management-data/kelas">Kelas</Link>
+            </li>
+            <li
+              onClick={() =>
+                setLinkUrl('/admin/management-data/mata-pelajaran')
+              }
+              className={`text-sm font-semibold  ${
+                pathname === '/admin/management-data/mata-pelajaran'
+                  ? 'text-secondary'
+                  : 'text-primary'
+              }`}
+            >
+              <Link href="/admin/management-data/mata-pelajaran">
+                Mata Pelajaran
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
+      <Link
+        href="/auth/login"
+        className="mt-auto flex items-center gap-2 text-lg font-semibold cursor-pointer border-b py-1"
+      >
+        <MdLogout />
+        Logout
+      </Link>
     </aside>
   );
 }
