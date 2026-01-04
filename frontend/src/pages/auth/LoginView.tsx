@@ -1,11 +1,23 @@
 'use client';
 
+import { login } from '@/app/actions/authAction';
 import InputContainer from '@/components/fragments/inputs/InputContainer';
 import { useState } from 'react';
 
 export default function LoginView() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const handleLogin = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    try {
+      const response = await login({ email, password });
+
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="w-full h-screen flex justify-center items-center bg-secondary">
@@ -21,7 +33,7 @@ export default function LoginView() {
         <p className="text-sm text-primary text-center">
           Please login your account
         </p>
-        <form className="flex flex-col gap-4">
+        <form onSubmit={handleLogin} className="flex flex-col gap-4">
           <InputContainer
             label="Email"
             name="email"
