@@ -1,8 +1,9 @@
 'use client';
 
+import { logout } from '@/app/actions/authAction';
 import { checkPathname } from '@/utils/utils';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FaChevronDown, FaListUl } from 'react-icons/fa';
 import { IoGridOutline } from 'react-icons/io5';
@@ -12,9 +13,18 @@ export default function AdminSidebar() {
   const pathname = usePathname();
   const [linkUrl, setLinkUrl] = useState<string>('');
   const [linkListOpen, setLinkListOpen] = useState(false);
+  const router = useRouter();
 
-  console.log('pathname', pathname);
-  console.log('linkUrl', linkUrl);
+  const handleLogout = async () => {
+    try {
+      const response = await logout();
+      if (response.status === 'success') {
+        router.push('/auth/login');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <aside
@@ -109,13 +119,13 @@ export default function AdminSidebar() {
           </ul>
         </div>
       </div>
-      <Link
-        href="/auth/login"
+      <button
+        onClick={handleLogout}
         className="mt-auto flex items-center gap-2 text-lg font-semibold cursor-pointer border-b py-1"
       >
         <MdLogout />
         Logout
-      </Link>
+      </button>
     </aside>
   );
 }

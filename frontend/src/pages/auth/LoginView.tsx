@@ -2,11 +2,13 @@
 
 import { login } from '@/app/actions/authAction';
 import InputContainer from '@/components/fragments/inputs/InputContainer';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function LoginView() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
 
   const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -14,6 +16,8 @@ export default function LoginView() {
       const response = await login({ email, password });
 
       console.log(response);
+      router.push('/admin');
+      router.refresh();
     } catch (error) {
       console.log(error);
     }
