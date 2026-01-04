@@ -70,14 +70,6 @@ const userController: UserController = {
         role: user.role,
       });
 
-      // set cookies
-      res.cookie('accessToken', accessToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-      });
-
       return res.status(httpCode.OK).json({
         status: 'success',
         message: 'Berhasil login',
@@ -89,8 +81,6 @@ const userController: UserController = {
   },
   logout: async (req, res, next) => {
     try {
-      res.clearCookie('accessToken');
-
       return res.status(httpCode.OK).json({
         status: 'success',
         message: 'Berhasil logout',
