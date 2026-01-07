@@ -1,15 +1,21 @@
 'use client';
 
+import { createStudent } from '@/app/actions/studentAction';
 import InputContainer from '@/components/fragments/inputs/InputContainer';
 import SelectContainer from '@/components/fragments/inputs/InputSelectContainer';
-import { IStudent } from '@/types/StudentTypes';
+import { IGradeClass } from '@/types/GradeClassTypes';
+import { CreateStudentDTO } from '@/types/StudentTypes';
 
 import Link from 'next/link';
 import { useState } from 'react';
 import { FaChevronLeft } from 'react-icons/fa';
 
-export default function AddSiswaView() {
-  const [payload, setPayload] = useState<Omit<IStudent, '_id'>>({
+type props = {
+  gradeClassList: IGradeClass[];
+};
+
+export default function AddSiswaView({ gradeClassList }: props) {
+  const [payload, setPayload] = useState<CreateStudentDTO>({
     fullname: '',
     nisn: '',
     gender: 'male',
@@ -18,6 +24,11 @@ export default function AddSiswaView() {
     address: '',
     email: '',
     phoneNumber: '',
+    academicData: {
+      status: 'active',
+      entryYear: '',
+      studentClass: gradeClassList[0]._id || '',
+    },
   });
 
   const handleValueChange = <K extends keyof typeof payload>(
@@ -38,7 +49,53 @@ export default function AddSiswaView() {
     },
   ];
 
-  console.log(payload);
+  const clearPayload = () => {
+    setPayload({
+      fullname: '',
+      nisn: '',
+      gender: 'male',
+      birthOfDate: '',
+      placeOfBirth: '',
+      address: '',
+      email: '',
+      phoneNumber: '',
+      academicData: {
+        status: 'active',
+        entryYear: '',
+        studentClass: gradeClassList[0]?._id || '',
+      },
+    });
+  };
+
+  const gradeClassOption = gradeClassList.map((data) => ({
+    value: data._id,
+    option: data.className,
+  }));
+
+  const regexNumber = /^\d*$/;
+
+  const handleSubmit = async (e: {
+    preventDefault: () => void;
+  }): Promise<void> => {
+    e.preventDefault();
+    try {
+      const res = await createStudent(payload);
+
+      if (res.status !== 'success') {
+        throw new Error(res.message);
+      }
+
+      alert(res.message || 'success');
+      clearPayload();
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+        alert(error.message);
+      } else {
+        console.error('Terjadi kesalahan');
+      }
+    }
+  };
 
   return (
     <div className="flex flex-col">
@@ -54,7 +111,7 @@ export default function AddSiswaView() {
         </h3>
       </div>
 
-      <form className="flex flex-col w-full mt-8 gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col w-full mt-8 gap-4">
         <InputContainer
           label="Nama Lengkap"
           name="fullname"
@@ -65,7 +122,11 @@ export default function AddSiswaView() {
           label="NISN"
           name="nisn"
           value={payload.nisn}
-          setValue={(value) => handleValueChange('nisn', value)}
+          setValue={(value) => {
+            if (regexNumber.test(value)) {
+              handleValueChange('nisn', value);
+            }
+          }}
         />
         <InputContainer
           label="Tanggal lahir"
@@ -104,6 +165,58 @@ export default function AddSiswaView() {
           setValue={(value) => handleValueChange('email', value)}
           type="email"
         />
+        <InputContainer
+          label="Phone Number"
+          name="phoneNumber"
+          value={payload.phoneNumber}
+          setValue={(value) => {
+            if (regexNumber.test(value)) {
+              handleValueChange('phoneNumber', value);
+            }
+          }}
+          type="text"
+        />
+        <InputContainer
+          label="Entry Year"
+          name="entryYear"
+          value={payload.academicData.entryYear}
+          setValue={(value) => {
+            if (regexNumber.test(value)) {
+              setPayload((prev) => ({
+                ...prev,
+                academicData: {
+                  ...prev.academicData,
+                  entryYear: value,
+                },
+              }));
+            }
+          }}
+          type="text"
+        />
+        <SelectContainer
+          options={gradeClassOption}
+          value={payload.academicData.studentClass}
+          setValue={(value) => {
+            setPayload((prev) => ({
+              ...prev,
+              academicData: {
+                ...prev.academicData,
+                studentClass: value,
+              },
+            }));
+          }}
+          label="Tingkatan Kelas"
+          name="gradeClass"
+        />
+
+        <div className="mt-4">
+          <button
+            type="submit"
+            className="bg-primary text-white font-semibold py-2 px-4 rounded-sm hover:cursor-pointer"
+          >
+            Submit
+          </button>
+        </div>
       </form>
     </div>
   );

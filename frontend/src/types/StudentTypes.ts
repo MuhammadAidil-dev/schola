@@ -1,15 +1,19 @@
-export enum StatusType {
-  active = 'active',
-  passed = 'passed',
-  out = 'out',
-}
+export type StatusType = 'active' | 'passed' | 'out';
 
-// type AcademicType = {
-//   status: StatusType;
-//   entryYear: string;
-//   yearOut?: string;
-//   studentClass: string;
-// };
+type StudentClassType = {
+  classLevel: string;
+  className: string;
+  description: string;
+  studyProgram: string;
+  _id: string;
+};
+
+type AcademicType = {
+  status: StatusType;
+  entryYear: string;
+  yearOut?: string;
+  studentClass: StudentClassType;
+};
 
 // type ParentType = {
 //   fatherName: string;
@@ -28,5 +32,7 @@ export interface IStudent {
   address: string;
   email: string;
   phoneNumber: string;
-  // academicData: AcademicType;
+  academicData: AcademicType;
 }
+
+export type CreateStudentDTO = Omit<IStudent, '_id'>;

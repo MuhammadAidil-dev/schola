@@ -1,6 +1,7 @@
 'use client';
 
 import InformationCard from '@/components/fragments/cards/InformationCard';
+import { IStudent } from '@/types/StudentTypes';
 import Link from 'next/link';
 import { FaFilter, FaPlus, FaSearch } from 'react-icons/fa';
 
@@ -24,52 +25,13 @@ const dummyData: Dummy[] = [
   },
 ];
 
-const dummyStudents = [
-  {
-    id: 1,
-    nisn: '0051234567',
-    name: 'Andi Pratama',
-    entryYear: 2022,
-    className: 'X IPA 1',
-  },
-  {
-    id: 2,
-    nisn: '0051234568',
-    name: 'Siti Rahmawati',
-    entryYear: 2022,
-    className: 'X IPA 2',
-  },
-  {
-    id: 3,
-    nisn: '0049876543',
-    name: 'Budi Setiawan',
-    entryYear: 2021,
-    className: 'XI IPS 1',
-  },
-  {
-    id: 4,
-    nisn: '0049876544',
-    name: 'Dewi Lestari',
-    entryYear: 2021,
-    className: 'XI IPA 1',
-  },
-  {
-    id: 5,
-    nisn: '0038765432',
-    name: 'Rizky Maulana',
-    entryYear: 2020,
-    className: 'XII IPA 1',
-  },
-  {
-    id: 6,
-    nisn: '0038765433',
-    name: 'Putri Ayu',
-    entryYear: 2020,
-    className: 'XII IPS 1',
-  },
-];
+type props = {
+  studentList: IStudent[];
+};
 
-export default function ManagementSiswaView() {
+export default function ManagementSiswaView({ studentList }: props) {
+  console.log(studentList);
+
   return (
     <div className="flex flex-col py-2">
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
@@ -117,23 +79,23 @@ export default function ManagementSiswaView() {
               </tr>
             </thead>
             <tbody>
-              {dummyStudents.map((data, index) => {
+              {studentList.map((data, index) => {
                 return (
                   <tr key={index} className="text-xs md:text-sm">
                     <td className=" text-primary text-center border border-slate-300 p-2">
-                      {data.id}
+                      {index + 1}
                     </td>
                     <td className=" text-primary border border-slate-300 p-2">
                       {data.nisn}
                     </td>
                     <td className=" text-primary border border-slate-300 p-2">
-                      {data.name}
+                      {data.fullname}
                     </td>
                     <td className=" text-primary text-center border border-slate-300 p-2">
-                      {data.entryYear}
+                      {data.academicData.entryYear}
                     </td>
                     <td className=" text-primary border text-center border-slate-300 p-2">
-                      {data.className}
+                      {data.academicData.studentClass.className}
                     </td>
                     <td className=" text-primary border border-slate-300 p-2 flex justify-center items-center">
                       <button className="bg-primary font-semibold text-xs rounded-sm cursor-pointer w-32 text-white py-2 px-4">
