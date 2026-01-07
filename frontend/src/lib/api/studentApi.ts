@@ -19,3 +19,22 @@ export async function getAllStudents(): Promise<IStudent[]> {
 
   return res.data;
 }
+
+export async function getStudentById({
+  id,
+}: {
+  id: string;
+}): Promise<IStudent> {
+  const res = await fetcher<ApiResponse<IStudent>>(
+    `${API_URL}/api/students/${id}`,
+    {
+      method: 'GET',
+    }
+  );
+
+  if (res.status !== 'success') {
+    throw new Error(res.message || 'failed fetch all students');
+  }
+
+  return res.data;
+}

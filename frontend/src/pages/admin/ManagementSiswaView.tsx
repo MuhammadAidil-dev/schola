@@ -1,8 +1,10 @@
 'use client';
 
 import InformationCard from '@/components/fragments/cards/InformationCard';
+import DetailStudentModal from '@/components/fragments/modals/DetailStudentModal';
 import { IStudent } from '@/types/StudentTypes';
 import Link from 'next/link';
+import { useState } from 'react';
 import { FaFilter, FaPlus, FaSearch } from 'react-icons/fa';
 
 type Dummy = {
@@ -30,7 +32,16 @@ type props = {
 };
 
 export default function ManagementSiswaView({ studentList }: props) {
-  console.log(studentList);
+  const [selectedStudent, setSelecteStudent] = useState<IStudent | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleSelectStudent = (student: IStudent) => {
+    setSelecteStudent(student);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   return (
     <div className="flex flex-col py-2">
@@ -98,7 +109,13 @@ export default function ManagementSiswaView({ studentList }: props) {
                       {data.academicData.studentClass.className}
                     </td>
                     <td className=" text-primary border border-slate-300 p-2 flex justify-center items-center">
-                      <button className="bg-primary font-semibold text-xs rounded-sm cursor-pointer w-32 text-white py-2 px-4">
+                      <button
+                        onClick={() => {
+                          handleSelectStudent(studentList[index]);
+                          setIsOpen(true);
+                        }}
+                        className="bg-primary font-semibold text-xs rounded-sm cursor-pointer w-32 text-white py-2 px-4"
+                      >
                         Detail
                       </button>
                     </td>
@@ -109,6 +126,9 @@ export default function ManagementSiswaView({ studentList }: props) {
           </table>
         </div>
       </div>
+      {isOpen && selectedStudent && (
+        <DetailStudentModal student={selectedStudent} closeModal={closeModal} />
+      )}
     </div>
   );
 }

@@ -16,3 +16,6 @@ export const formattedDate = (param: string): string => {
     year: 'numeric',
   });
 };
+
+export const formatDateForInput = (date: string) =>
+  date ? date.split('T')[0] : '';

@@ -15,6 +15,10 @@ type AcademicType = {
   studentClass: StudentClassType;
 };
 
+type CreateAcademicType = Omit<AcademicType, 'studentClass'> & {
+  studentClass: string;
+};
+
 // type ParentType = {
 //   fatherName: string;
 //   motherName: string;
@@ -35,4 +39,10 @@ export interface IStudent {
   academicData: AcademicType;
 }
 
-export type CreateStudentDTO = Omit<IStudent, '_id'>;
+export type CreateStudentDTO = Omit<IStudent, '_id' | 'academicData'> & {
+  academicData: CreateAcademicType;
+};
+
+export type UpdateStudentDTO = Omit<IStudent, '_id' | 'academicData'> & {
+  academicData: CreateAcademicType;
+};
